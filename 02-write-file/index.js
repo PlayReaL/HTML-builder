@@ -16,5 +16,6 @@ function processChunk(chunk) {
   }
 }
 
+process.stdout.write('Greetings, please enter some text:\n');
 process.stdin.on('data', processChunk);
 process.on('SIGINT', () => exit());
