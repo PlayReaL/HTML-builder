@@ -43,13 +43,14 @@ async function bundleHtml() {
     path.join(__dirname, 'template.html'),
     'utf-8',
   );
-  const entries = await fsPromises.readdir(path.join(__dirname, 'components'), {
+  const folderPath = path.join(__dirname, 'components');
+  const entries = await fsPromises.readdir(folderPath, {
     withFileTypes: true,
   });
   for (const entry of entries) {
     if (entry.isFile() && path.extname(entry.name) === '.html') {
       const data = await fsPromises.readFile(
-        path.join(entry.path, entry.name),
+        path.join(folderPath, entry.name),
         'utf-8',
       );
       const componentName = entry.name.slice(0, entry.name.lastIndexOf('.'));

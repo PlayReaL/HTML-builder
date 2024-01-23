@@ -2,6 +2,8 @@ const fs = require('node:fs');
 const fsPromises = require('node:fs/promises');
 const path = require('node:path');
 
+const folderPath = path.join(__dirname, 'secret-folder');
+
 function printFileEntryFactory(fileName) {
   return function (error, stats) {
     if (error) {
@@ -16,11 +18,11 @@ function printFileEntryFactory(fileName) {
 }
 
 fsPromises
-  .readdir(path.join(__dirname, 'secret-folder'), {
+  .readdir(folderPath, {
     withFileTypes: true,
   })
   .then((dirEntries) =>
     dirEntries.map((v) =>
-      fs.stat(path.join(v.path, v.name), printFileEntryFactory(v.name)),
+      fs.stat(path.join(folderPath, v.name), printFileEntryFactory(v.name)),
     ),
   );
